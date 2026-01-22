@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keystone Baseball – Inning Tracker</title>
+  <meta name="theme-color" content="#111111" />
+  <style>
+    :root { --bg:#0f1115; --card:#161a22; --muted:#9aa4b2; --text:#e7ecf3; --line:#262c38; }
+    *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial;}
+    body{margin:0;background:var(--bg);color:var(--text);padding:16px;}
+    h1{margin:0 0 10px 0;font-size:18px;letter-spacing:.3px;}
+    .sub{color:var(--muted);font-size:12px;margin-bottom:14px;}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px;}
+    .grid{display:grid;gap:10px;}
+    .header-grid{grid-template-columns: 1fr 1fr 1fr;}
+    label{font-size:11px;color:var(--muted);display:block;margin-bottom:6px;}
+    input, select{
+      width:100%; padding:10px 10px; border-radius:12px;
+      border:1px solid var(--line); background:#0c0f14; color:var(--text);
+      font-size:14px;
+    }
+
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      border:1px solid var(--line);
+      background:#0c0f14;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:13px;
+      min-width:44px;
+      text-align:center;
+    }
+    .chip.active{outline:2px solid #3b82f6; outline-offset:0px;}
+    .chip:active{transform:scale(.98);}
+
+    .table{width:100%;}
+    .row{background:#0c0f14;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px;}
+    .rowwrap{display:grid;grid-template-columns: 1.25fr 1fr 1fr;align-items:center;}
+    .metric{padding:12px 10px;font-size:13px;}
+    .team{padding:10px; border-left:1px solid var(--line);}
+    .team h3{margin:0 0 6px 0;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;}
+    .controls{display:flex;align-items:center;gap:8px;}
+    .btn{
+      border:1px solid var(--line); background:#101521; color:var(--text);
+      padding:10px 12px; border-radius:12px; font-size:16px; font-weight:700;
+      min-width:44px;
+    }
+    .btn:active{transform:scale(.98);}
+    .count{min-width:42px;text-align:center;font-size:18px;font-weight:800;}
+
+    .bar{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:14px; background:#0c0f14; border:1px solid var(--line);
+    }
+    .bar strong{font-size:16px;}
+    .muted{color:var(--muted);font-size:12px;}
+    .pill{display:inline-flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+    .pill button{
+      border:1px solid var(--line); background:#0c0f14; color:var(--text);
+      padding:10px 12px; border-radius:999px; font-size:13px;
+    }
+    .pill button:active{transform:scale(.98);}
+    .note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.35;}
+  </style>
+</head>
+<body>
+  <h1>Keystone HS Baseball – Inning Free Base Tracker</h1>
+  <div class="sub">Pick an inning, then tap counts. Auto-saves. Exports inning-by-inning.</div>
+
+  <div class="card grid header-grid">
+    <div>
+      <label>Opponent</label>
+      <input id="opponent" placeholder="e.g., Firelands" />
+    </div>
+    <div>
+      <label>Date</label>
+      <input id="date" type="date" />
+    </div>
+    <div>
+      <label>Game #</label>
+      <select id="gameNo">
+        <option value="1">1</option><option value="2">2</option>
+        <option value="3">3</option><option value="4">4</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="muted" style="margin-bottom:8px;">Inning</div>
+    <div id="inningChips" class="chips"></div>
+
+    <div style="height:10px;"></div>
+
+    <div class="bar">
+      <div>
+        <div class="muted">THIS INNING (selected)</div>
+        <div style="display:flex;gap:16px;align-items:baseline;">
+          <strong>US: <span id="inningUs">0</span></strong>
+          <strong>OPP: <span id="inningOpp">0</span></strong>
+        </div>
+      </div>
+      <div>
+        <div class="muted">GAME TOTAL</div>
+        <div style="display:flex;gap:16px;align-items:baseline;">
+          <strong>US: <span id="gameUs">0</span></strong>
+          <strong>OPP: <span id="gameOpp">0</span></strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      Think of each inning like a stand: if you’re giving away bases early, it’s like spooking deer before daylight — the whole game gets harder.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="bar" style="margin-bottom:12px;">
+      <div class="muted">Tap-to-count (US vs OPPONENT)</div>
+      <div class="pill">
+        <button id="undoBtn">Undo</button>
+        <button id="exportBtn">Export CSV</button>
+        <button id="resetBtn">Reset Game</button>
+      </div>
+    </div>
+    <div id="rows"></div>
+  </div>
+
+<script>
+  const METRICS = [
+    { key:"error", label:"ERROR" },
+    { key:"walk", label:"WALK" },
+    { key:"hbp", label:"HIT BY PITCH" },
+    { key:"pb", label:"PASSED BALL" },
+    { key:"wp", label:"WILD PITCH" },
+    { key:"balk", label:"BALK" },
+    { key:"oks", label:"OFFENSIVE K'S" },
+    { key:"sbA", label:"SB AGAINST" },
+    { key:"other", label:"OTHER FREE BASE" },
+  ];
+
+  const INNINGS = ["1","2","3","4","5","6","7","X"]; // X = Extras
+
+  const STORAGE_KEY = "keystone_inning_freebase_tracker_v1";
+
+  // State:
+  // {
+  //   opponent, date, gameNo,
+  //   selectedInning: "1",
+  //   counts: { inning: { metricKey: {us, opp} } },
+  //   history: [ {inning, metricKey, team, delta} ]
+  // }
+  let state = load() || fresh();
+
+  function fresh(){
+    const counts = {};
+    INNINGS.forEach(inn => {
+      counts[inn] = {};
+      METRICS.forEach(m => counts[inn][m.key] = { us:0, opp:0 });
+    });
+    return { opponent:"", date:"", gameNo:"1", selectedInning:"1", counts, history:[] };
+  }
+
+  // Elements
+  const opponentEl = document.getElementById("opponent");
+  const dateEl = document.getElementById("date");
+  const gameNoEl = document.getElementById("gameNo");
+
+  const inningChipsEl = document.getElementById("inningChips");
+  const inningUsEl = document.getElementById("inningUs");
+  const inningOppEl = document.getElementById("inningOpp");
+  const gameUsEl = document.getElementById("gameUs");
+  const gameOppEl = document.getElementById("gameOpp");
+
+  const rowsEl = document.getElementById("rows");
+  const undoBtn = document.getElementById("undoBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const exportBtn = document.getElementById("exportBtn");
+
+  opponentEl.value = state.opponent;
+  dateEl.value = state.date;
+  gameNoEl.value = state.gameNo;
+
+  opponentEl.addEventListener("input", () => { state.opponent = opponentEl.value; persist(); });
+  dateEl.addEventListener("input", () => { state.date = dateEl.value; persist(); });
+  gameNoEl.addEventListener("change", () => { state.gameNo = gameNoEl.value; persist(); });
+
+  function renderInningChips(){
+    inningChipsEl.innerHTML = "";
+    INNINGS.forEach(inn => {
+      const btn = document.createElement("button");
+      btn.className = "chip" + (state.selectedInning === inn ? " active" : "");
+      btn.textContent = (inn === "X") ? "Extras" : inn;
+      btn.addEventListener("click", () => {
+        state.selectedInning = inn;
+        persist();
+        render();
+      });
+      inningChipsEl.appendChild(btn);
+    });
+  }
+
+  function renderRows(){
+    rowsEl.innerHTML = "";
+    const inn = state.selectedInning;
+
+    METRICS.forEach(m => {
+      const c = state.counts[inn][m.key];
+
+      const wrap = document.createElement("div");
+      wrap.className = "row";
+
+      const row = document.createElement("div");
+      row.className = "rowwrap";
+
+      const metric = document.createElement("div");
+      metric.className = "metric";
+      metric.textContent = m.label;
+
+      const us = teamCell("US", c.us, (delta) => bump(inn, m.key, "us", delta));
+      const opp = teamCell("OPP", c.opp, (delta) => bump(inn, m.key, "opp", delta));
+
+      row.appendChild(metric);
+      row.appendChild(us);
+      row.appendChild(opp);
+      wrap.appendChild(row);
+      rowsEl.appendChild(wrap);
+    });
+  }
+
+  function teamCell(title, value, onDelta){
+    const cell = document.createElement("div");
+    cell.className = "team";
+
+    const h3 = document.createElement("h3");
+    h3.textContent = title;
+
+    const controls = document.createElement("div");
+    controls.className = "controls";
+
+    const minus = document.createElement("button");
+    minus.className = "btn";
+    minus.textContent = "–";
+    minus.addEventListener("click", () => onDelta(-1));
+
+    const count = document.createElement("div");
+    count.className = "count";
+    count.textContent = value;
+
+    const plus = document.createElement("button");
+    plus.className = "btn";
+    plus.textContent = "+";
+    plus.addEventListener("click", () => onDelta(+1));
+
+    controls.appendChild(minus);
+    controls.appendChild(count);
+    controls.appendChild(plus);
+
+    cell.appendChild(h3);
+    cell.appendChild(controls);
+    return cell;
+  }
+
+  function bump(inning, metricKey, team, delta){
+    const cur = state.counts[inning][metricKey][team];
+    const next = Math.max(0, cur + delta);
+    if (next === cur) return;
+
+    state.counts[inning][metricKey][team] = next;
+    state.history.push({ inning, metricKey, team, delta });
+    persist();
+    renderTotals();
+    renderRows();
+    renderInningChips(); // keeps active highlight correct
+  }
+
+  function calcTotalsForInning(inning){
+    let us = 0, opp = 0;
+    METRICS.forEach(m => {
+      us += state.counts[inning][m.key].us;
+      opp += state.counts[inning][m.key].opp;
+    });
+    return { us, opp };
+  }
+
+  function calcGameTotals(){
+    let us = 0, opp = 0;
+    INNINGS.forEach(inn => {
+      const t = calcTotalsForInning(inn);
+      us += t.us; opp += t.opp;
+    });
+    return { us, opp };
+  }
+
+  function renderTotals(){
+    const inningTotals = calcTotalsForInning(state.selectedInning);
+    inningUsEl.textContent = inningTotals.us;
+    inningOppEl.textContent = inningTotals.opp;
+
+    const gameTotals = calcGameTotals();
+    gameUsEl.textContent = gameTotals.us;
+    gameOppEl.textContent = gameTotals.opp;
+
+    undoBtn.disabled = state.history.length === 0;
+    undoBtn.style.opacity = undoBtn.disabled ? 0.5 : 1;
+  }
+
+  undoBtn.addEventListener("click", () => {
+    const last = state.history.pop();
+    if (!last) return;
+
+    const cur = state.counts[last.inning][last.metricKey][last.team];
+    state.counts[last.inning][last.metricKey][last.team] = Math.max(0, cur - last.delta);
+
+    persist();
+    render();
+  });
+
+  resetBtn.addEventListener("click", () => {
+    const keepHeader = { opponent: state.opponent, date: state.date, gameNo: state.gameNo };
+    state = fresh();
+    state.opponent = keepHeader.opponent;
+    state.date = keepHeader.date;
+    state.gameNo = keepHeader.gameNo;
+    persist();
+    render();
+  });
+
+  exportBtn.addEventListener("click", () => {
+    const lines = [];
+    lines.push(["Opponent", state.opponent].join(","));
+    lines.push(["Date", state.date].join(","));
+    lines.push(["GameNo", state.gameNo].join(","));
+    lines.push("");
+
+    // Inning-by-inning table
+    lines.push(["Inning","Metric","US","OPP"].join(","));
+    INNINGS.forEach(inn => {
+      METRICS.forEach(m => {
+        const c = state.counts[inn][m.key];
+        const innLabel = (inn === "X") ? "Extras" : inn;
+        lines.push([innLabel, m.label, c.us, c.opp].join(","));
+      });
+      const t = calcTotalsForInning(inn);
+      const innLabel = (inn === "X") ? "Extras" : inn;
+      lines.push([innLabel, "INNING TOTAL", t.us, t.opp].join(","));
+    });
+
+    const gt = calcGameTotals();
+    lines.push(["GAME TOTAL","", gt.us, gt.opp].join(","));
+
+    const csv = lines.join("\n");
+    const blob = new Blob([csv], { type:"text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Keystone_Inning_FreeBase_${state.date || "game"}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  function persist(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed.counts || !parsed.selectedInning) return null;
+
+      // Backstop: ensure all innings/metrics exist
+      INNINGS.forEach(inn => {
+        parsed.counts[inn] = parsed.counts[inn] || {};
+        METRICS.forEach(m => {
+          parsed.counts[inn][m.key] = parsed.counts[inn][m.key] || { us:0, opp:0 };
+          if (typeof parsed.counts[inn][m.key].us !== "number") parsed.counts[inn][m.key].us = 0;
+          if (typeof parsed.counts[inn][m.key].opp !== "number") parsed.counts[inn][m.key].opp = 0;
+        });
+      });
+      if (!INNINGS.includes(parsed.selectedInning)) parsed.selectedInning = "1";
+      parsed.history = Array.isArray(parsed.history) ? parsed.history : [];
+      return parsed;
+    }catch(e){ return null; }
+  }
+
+  function render(){
+    renderInningChips();
+    renderTotals();
+    renderRows();
+  }
+
+  render();
+</script>
+</body>
+</html>
