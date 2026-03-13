@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8DEEC01B2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEEC01A2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift */; };
+		8DEEC01C2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEEC01A2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift */; };
+		8DEEC01D2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEEC01A2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift */; };
+		8DEEC01F2F4F667100EF1390 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEEC01E2F4F667100EF1390 /* ContentView.swift */; };
+		8DEEC0202F4F667200EF1390 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEEC01E2F4F667100EF1390 /* ContentView.swift */; };
+		8DEEC0212F4F667200EF1390 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEEC01E2F4F667100EF1390 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		8D691B252F32661600FE6068 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,22 +36,16 @@
 		8D691B152F32661400FE6068 /* Baseball Stat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Baseball Stat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D691B242F32661600FE6068 /* Baseball Stat TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Baseball Stat TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D691B2E2F32661600FE6068 /* Baseball Stat TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Baseball Stat TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DEEC0182F4F5E9A00EF1390 /* Baseball Stat TrackerTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Baseball Stat TrackerTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		8DEEC0192F4F5E9A00EF1390 /* Baseball Stat TrackerUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Baseball Stat TrackerUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		8DEEC01A2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseballStatTracker_DropIn.swift; sourceTree = "<group>"; };
+		8DEEC01E2F4F667100EF1390 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8D691B172F32661400FE6068 /* Baseball Stat Tracker */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Baseball Stat Tracker";
-			sourceTree = "<group>";
-		};
-		8D691B272F32661600FE6068 /* Baseball Stat TrackerTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Baseball Stat TrackerTests";
-			sourceTree = "<group>";
-		};
-		8D691B312F32661600FE6068 /* Baseball Stat TrackerUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Baseball Stat TrackerUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,10 +78,12 @@
 		8D691B0C2F32661400FE6068 = {
 			isa = PBXGroup;
 			children = (
+				8DEEC01A2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift */,
+				8DEEC01E2F4F667100EF1390 /* ContentView.swift */,
 				8D691B172F32661400FE6068 /* Baseball Stat Tracker */,
-				8D691B272F32661600FE6068 /* Baseball Stat TrackerTests */,
-				8D691B312F32661600FE6068 /* Baseball Stat TrackerUITests */,
 				8D691B162F32661400FE6068 /* Products */,
+				8DEEC0182F4F5E9A00EF1390 /* Baseball Stat TrackerTests-Bridging-Header.h */,
+				8DEEC0192F4F5E9A00EF1390 /* Baseball Stat TrackerUITests-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,9 +135,6 @@
 			dependencies = (
 				8D691B262F32661600FE6068 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				8D691B272F32661600FE6068 /* Baseball Stat TrackerTests */,
-			);
 			name = "Baseball Stat TrackerTests";
 			packageProductDependencies = (
 			);
@@ -153,9 +155,6 @@
 			dependencies = (
 				8D691B302F32661600FE6068 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				8D691B312F32661600FE6068 /* Baseball Stat TrackerUITests */,
-			);
 			name = "Baseball Stat TrackerUITests";
 			packageProductDependencies = (
 			);
@@ -171,17 +170,19 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2620;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					8D691B142F32661400FE6068 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 					8D691B232F32661600FE6068 = {
 						CreatedOnToolsVersion = 26.2;
+						LastSwiftMigration = 2640;
 						TestTargetID = 8D691B142F32661400FE6068;
 					};
 					8D691B2D2F32661600FE6068 = {
 						CreatedOnToolsVersion = 26.2;
+						LastSwiftMigration = 2640;
 						TestTargetID = 8D691B142F32661400FE6068;
 					};
 				};
@@ -236,6 +237,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEEC01B2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift in Sources */,
+				8DEEC0202F4F667200EF1390 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +246,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEEC01F2F4F667100EF1390 /* ContentView.swift in Sources */,
+				8DEEC01C2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +255,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DEEC0212F4F667200EF1390 /* ContentView.swift in Sources */,
+				8DEEC01D2F4F5E9B00EF1390 /* BaseballStatTracker_DropIn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +310,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9HT6TSQV5F;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -326,6 +334,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -365,6 +374,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9HT6TSQV5F;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -381,6 +391,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -392,7 +403,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9HT6TSQV5F;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 7L54385C92;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -408,24 +420,23 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hetsler-com.hetsler.Baseball-Stat-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hetsler-com.hetsler.BaseballStatTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -436,7 +447,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9HT6TSQV5F;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 7L54385C92;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -452,24 +464,23 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hetsler-com.hetsler.Baseball-Stat-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hetsler-com.hetsler.BaseballStatTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				XROS_DEPLOYMENT_TARGET = 26.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -477,8 +488,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9HT6TSQV5F;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
@@ -491,6 +504,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Baseball Stat TrackerTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -503,8 +518,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9HT6TSQV5F;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
@@ -517,6 +534,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Baseball Stat TrackerTests-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -528,8 +546,10 @@
 		8D691B3F2F32661600FE6068 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9HT6TSQV5F;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
@@ -542,6 +562,8 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Baseball Stat TrackerUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
@@ -553,8 +575,10 @@
 		8D691B402F32661600FE6068 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 9HT6TSQV5F;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
@@ -567,6 +591,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Baseball Stat TrackerUITests-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
