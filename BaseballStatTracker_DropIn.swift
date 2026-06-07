@@ -4,9 +4,8 @@ import SwiftData
 @main
 struct BaseballStatTrackerApp: App {
 
-    // ✅ Explicit persistent container (NOT in-memory)
     private let container: ModelContainer = {
-        let schema = Schema([SavedGame.self])
+        let schema = Schema([SavedGame.self, MileageRecord.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
             return try ModelContainer(for: schema, configurations: [config])
@@ -17,7 +16,12 @@ struct BaseballStatTrackerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem { Label("Baseball", systemImage: "baseball.fill") }
+                MileageRootView()
+                    .tabItem { Label("Mileage", systemImage: "car.fill") }
+            }
         }
         .modelContainer(container)
     }
