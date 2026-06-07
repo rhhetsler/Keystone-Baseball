@@ -54,6 +54,7 @@ struct MileageListView: View {
 
     @State private var showAddSheet = false
     @State private var showRateSettings = false
+    @State private var showReportSheet = false
     @State private var selectedRecord: MileageRecord?
     @State private var recordToDelete: MileageRecord?
     @State private var showDeleteConfirm = false
@@ -107,8 +108,13 @@ struct MileageListView: View {
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button { showAddSheet = true } label: {
-                    Image(systemName: "plus")
+                HStack {
+                    Button { showReportSheet = true } label: {
+                        Image(systemName: "envelope")
+                    }
+                    Button { showAddSheet = true } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }
@@ -120,6 +126,9 @@ struct MileageListView: View {
         }
         .sheet(isPresented: $showRateSettings) {
             IRSRateSettingsView().environmentObject(rateManager)
+        }
+        .sheet(isPresented: $showReportSheet) {
+            SendReportView()
         }
         .confirmationDialog("Delete this record?", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
             Button("Delete", role: .destructive) {
